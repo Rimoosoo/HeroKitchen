@@ -16,10 +16,11 @@ const styles = StyleSheet.create({
   container: {
     alignSelf: "center",
     alignItems: "center",
-    width: "90%",
+    width: "80%",
+    paddingVertical: 10,
+    borderWidth: 1,
     borderRadius: 10,
     backgroundColor: Colors.componentColor.viewBox,
-    marginBottom: 30,
   },
   //
   normalText: {

@@ -5,6 +5,7 @@ import {
   Text,
   Image,
   useWindowDimensions,
+  Pressable,
 } from "react-native";
 import AntIcon from "react-native-vector-icons/AntDesign";
 import Colors from "../../../assets/Colors";
@@ -15,6 +16,10 @@ const item = {
   detail: "장어2미 + 파/와사비 + 귀리밥 + 장어소스",
   image: require("../../../assets/image/unagi/food.jpg"),
 };
+
+function orderBtnHandler() {
+  console.log("orderBtn handler clicked");
+}
 
 function MenuListItem({ menu }) {
   return (
@@ -39,13 +44,25 @@ function MenuListItem({ menu }) {
             style={[{ width: "100%", height: "100%" }]}
           />
         </View>
-        <View style={styles.iconContainer}>
+        <Pressable
+          style={({ pressed }) => {
+            if (pressed) {
+              return [
+                styles.iconContainer,
+                { backgroundColor: "red", borderRadius: 30 },
+              ];
+            } else {
+              return [styles.iconContainer];
+            }
+          }}
+          onPress={orderBtnHandler}
+        >
           <AntIcon
             name="pluscircle"
             size={50}
             color={Colors.componentColor.plusBtn}
           />
-        </View>
+        </Pressable>
       </View>
     </View>
   );
@@ -55,10 +72,13 @@ export default MenuListItem;
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     flexDirection: "row",
+    alignSelf: "center",
     width: "90%",
+    paddingVertical: 15,
     borderRadius: 10,
-    marginBottom: 20,
+    marginVertical: 40,
     //ios
     shadowColor: "black",
     shadowOffset: { width: 2, height: 2 },
@@ -92,7 +112,7 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     position: "absolute",
-    top: -20,
+    top: -40,
     right: -10,
   },
   //

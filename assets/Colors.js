@@ -4,7 +4,10 @@ const Colors = {
     viewBox: "#80808030",
     background: "white",
   },
-  basicColor: {},
+  basicColor: {
+    blue: "#2522CA",
+    orange: "#ff6e12",
+  },
 };
 
 export default Colors;

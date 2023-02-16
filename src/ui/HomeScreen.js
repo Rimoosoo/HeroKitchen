@@ -31,7 +31,7 @@ function HomeScreen() {
         <Pressable
           style={styles.itemContainer}
           onPress={() => {
-            navigation.navigate("MenuList", { brand: "뚝도 양조장" });
+            navigation.navigate("StoreIntroduce", { brand: "뚝도 양조장" });
           }}
         >
           <Text style={styles.normalText}>뚝도 양조장</Text>
@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
   normalText: {
     color: "black",
     fontWeight: "bold",
-    fontSize: 30,
+    fontSize: 40,
+    fontFamily: "gowun",
   },
 });
