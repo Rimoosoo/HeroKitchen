@@ -1,21 +1,25 @@
 import React from "react";
-import { FlatList, Image, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import Colors from "../../../../assets/Colors";
 import Menus from "../../../../assets/menu/unagi";
 import FoodContainer from "../FoodContainer";
 
-const brand = {
-  brandName: "뚝도 양조장",
-  star: 4.7,
-  category: "korean-japanese",
-  deliveryFee: 3000,
-  deliveryTime: 40,
-  minimumOrder: 15000,
-  picture: require("../../../../assets/image/unagi/food1.jpg"),
-};
+function StoreIntroduce({ route, navigation }) {
+  const { brand } = route.params;
+  React.useEffect(() => {
+    navigation.setOptions({
+      title: brand?.brandName,
+    });
+  }, [navigation]);
 
-function StoreIntroduce() {
   return (
     <View style={styles.container}>
       <View style={styles.firstContainer}>
@@ -61,12 +65,30 @@ function StoreIntroduce() {
           </View>
         </View>
         <View style={styles.second2Container}>
-          <View style={styles.second2IconContainer1}>
+          <Pressable
+            style={({ pressed }) => {
+              return pressed
+                ? [styles.second2IconContainer1, { backgroundColor: "red" }]
+                : [styles.second2IconContainer1];
+            }}
+            onPress={() => {
+              navigation.navigate("DeliveryScreen");
+            }}
+          >
             <Text>Delivery</Text>
-          </View>
-          <View style={styles.second2IconContainer2}>
+          </Pressable>
+          <Pressable
+            style={({ pressed }) => {
+              return pressed
+                ? [styles.second2IconContainer2, { backgroundColor: "red" }]
+                : [styles.second2IconContainer2];
+            }}
+            onPress={() => {
+              navigation.navigate("PickupScreen");
+            }}
+          >
             <Text>Pick-up</Text>
-          </View>
+          </Pressable>
         </View>
         <View style={styles.second3Container}>
           <Text style={{ fontFamily: "gowun" }}>예상 소요시간</Text>
@@ -117,6 +139,7 @@ const styles = StyleSheet.create({
   },
   thirdContainer: {
     flex: 5,
+    paddingBottom: 10,
   },
   //
   second1Container: {
