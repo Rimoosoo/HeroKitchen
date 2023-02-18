@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import Colors from "../../assets/Colors";
 
 const brands = [
   {
@@ -33,10 +34,10 @@ const brands = [
   },
 ];
 function HomeScreen() {
-  const navigation = useNavigation();
+  const navigator = useNavigation();
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.zeroContainer}>
         <Pressable
           style={{
@@ -45,7 +46,7 @@ function HomeScreen() {
             paddingLeft: 10,
           }}
           onPress={() => {
-            navigation.navigate("DeliveryScreen");
+            navigator.navigate("DeliveryScreen");
           }}
         >
           <MaterialIcon name="home-edit" size={50} color="black" />
@@ -58,7 +59,7 @@ function HomeScreen() {
         <Pressable
           style={styles.itemContainer}
           onPress={() => {
-            navigation.navigate("StoreIntroduce", { brand: brands[0] });
+            navigator.navigate("StoreIntroduce", { brand: brands[0] });
           }}
         >
           <Text style={styles.normalText}>우나기 맨숀</Text>
@@ -68,7 +69,7 @@ function HomeScreen() {
         <Pressable
           style={styles.itemContainer}
           onPress={() => {
-            navigation.navigate("StoreIntroduce", { brand: brands[1] });
+            navigator.navigate("StoreIntroduce", { brand: brands[1] });
           }}
         >
           <Text style={styles.normalText}>대창을 덮다</Text>
@@ -78,13 +79,13 @@ function HomeScreen() {
         <Pressable
           style={styles.itemContainer}
           onPress={() => {
-            navigation.navigate("StoreIntroduce", { brand: brands[2] });
+            navigator.navigate("StoreIntroduce", { brand: brands[2] });
           }}
         >
           <Text style={styles.normalText}>뚝도 양조장</Text>
         </Pressable>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -122,14 +123,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "80%",
     height: "50%",
-    backgroundColor: "#80808040",
+    backgroundColor: Colors.componentColor.viewBox,
     borderRadius: 30,
   },
   //
   //
   normalText: {
     color: "black",
-    fontWeight: "bold",
     fontSize: 40,
     fontFamily: "gowun",
   },

@@ -1,5 +1,6 @@
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
+import Colors from "../../../assets/Colors";
 
 function FoodContainer({ menu }) {
   return (
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
     width: 300,
     alignItems: "center",
     borderRadius: 20,
-    backgroundColor: "gray",
+    backgroundColor: Colors.componentColor.viewBox,
     padding: 10,
   },
   upperContainer: {

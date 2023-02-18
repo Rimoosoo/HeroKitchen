@@ -6,30 +6,40 @@ import {
   StyleSheet,
   TextInput,
   Pressable,
+  KeyboardAvoidingView,
 } from "react-native";
 import MapView from "react-native-maps";
 import * as Location from "expo-location";
 import Colors from "../../assets/Colors";
-function DeliveryScreen() {
+function DeliveryScreen({ navigation }) {
   const [location, setLocation] = useState({
-    longitude: 37,
-    latitudeDelta: 3,
-    latitude: 126,
-    latitudeDelta: 3,
+    latitude: 37.78825,
+    longitude: -122.4324,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
   });
   const [address, setAddress] = useState();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  });
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
       <View style={styles.upperView}>
         <MapView
           style={styles.map}
           initialRegion={location}
-          region={location}
-          onRegionChangeComplete={(newRegion) => {
-            setTimeout(() => {
-              setLocation(newRegion);
-            }, 1000);
-          }}
+          // region={location}
+          // onRegionChangeComplete={(newRegion) => {
+          //   setTimeout(() => {
+          //     setLocation(newRegion);
+          //   }, 1000);
+          // }}
           showsUserLocation={true}
           followsUserLocation={true}
           showsMyLocationButton={true}
@@ -45,12 +55,13 @@ function DeliveryScreen() {
           <TextInput
             value={address}
             placeholder="주소를 입력해주세요"
+            multiline={true}
             style={{
-              backgroundColor: Colors.componentColor.viewBox,
               height: 40,
               width: "80%",
               fontSize: 20,
               fontFamily: "gowun",
+              flex: 1,
             }}
           />
         </View>
@@ -62,7 +73,7 @@ function DeliveryScreen() {
           </Pressable>
         </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -80,7 +91,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "90%",
     borderRadius: 10,
-    backgroundColor: "gray",
+    backgroundColor: Colors.componentColor.viewBox,
   },
   lowerSecondView: {
     flex: 1,
@@ -101,7 +112,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "80%",
     height: "70%",
-    backgroundColor: Colors.componentColor.plusBtn,
+    backgroundColor: Colors.basicColor.orange,
     borderRadius: 30,
   },
 });

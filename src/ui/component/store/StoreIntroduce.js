@@ -3,6 +3,7 @@ import {
   FlatList,
   Image,
   Pressable,
+  SafeAreaView,
   StyleSheet,
   Text,
   View,
@@ -14,28 +15,37 @@ import FoodContainer from "../FoodContainer";
 
 function StoreIntroduce({ route, navigation }) {
   const { brand } = route.params;
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     navigation.setOptions({
       title: brand?.brandName,
+      headerShown: false,
     });
   }, [navigation]);
 
   return (
     <View style={styles.container}>
       <View style={styles.firstContainer}>
-        <View style={{ flex: 1 }}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "white",
+          }}
+        >
           <Image
             source={brand.picture}
             resizeMode="cover"
-            style={{ flex: 1 }}
+            style={{
+              flex: 1,
+              width: "100%",
+              borderBottomLeftRadius: 20,
+              borderBottomRightRadius: 20,
+            }}
           />
         </View>
       </View>
       <View style={styles.secondContainer}>
         <View style={styles.second1Container}>
-          <Text style={[styles.normalText, styles.boldText]}>
-            {brand.brandName}
-          </Text>
+          <Text style={[styles.normalText]}>{brand.brandName}</Text>
           <View style={styles.storeDetailContainer}>
             <View style={styles.starContainer}>
               <EntypoIcon name="star" size={25} color="#E34234" />
@@ -106,12 +116,13 @@ function StoreIntroduce({ route, navigation }) {
             <View
               style={{
                 width: 20,
+                backgroundColor: "white",
               }}
             />
           }
           renderItem={({ item }) => {
             return (
-              <View>
+              <View style={{ backgroundColor: "white" }}>
                 <FoodContainer menu={item} />
               </View>
             );
@@ -130,11 +141,9 @@ const styles = StyleSheet.create({
   },
   firstContainer: {
     flex: 1.8,
-    borderBottomWidth: 3,
-    borderBottomColor: "gray",
   },
   secondContainer: {
-    flex: 4,
+    flex: 5,
     backgroundColor: "white",
   },
   thirdContainer: {
@@ -152,6 +161,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-evenly",
+    paddingTop: 15,
   },
   second3Container: {
     flex: 1.5,
@@ -189,7 +199,7 @@ const styles = StyleSheet.create({
   //
   normalText: {
     fontSize: 30,
-    fontFamily: "black-sans",
+    fontFamily: "gowun",
   },
   boldText: {
     fontWeight: "bold",

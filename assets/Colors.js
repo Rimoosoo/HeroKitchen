@@ -1,7 +1,8 @@
 const Colors = {
   componentColor: {
-    plusBtn: "#1E90FF95",
-    viewBox: "#80808030",
+    plusBtn: "#ffa07d95",
+    viewBox: "#ffa07d95",
+    viewBox2: "#ffa08daa",
     background: "white",
   },
   basicColor: {
