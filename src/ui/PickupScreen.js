@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -8,16 +8,43 @@ import {
   useWindowDimensions,
   TouchableWithoutFeedback,
   SafeAreaView,
+  Pressable,
 } from "react-native";
 import Colors from "../../assets/Colors";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
-import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 
-const orderedList = [{ name: "히츠마부시", price: 12900, quantity: 2 }];
+const orderedList = [
+  { name: "히츠마부시", price: 12900, quantity: 2 },
+  { name: "연어덮밥", price: 15000, quantity: 3 },
+  { name: "히츠마부시", price: 12900, quantity: 2 },
+  { name: "연어덮밥", price: 15000, quantity: 3 },
+  { name: "히츠마부시", price: 12900, quantity: 2 },
+  { name: "연어덮밥", price: 15000, quantity: 3 },
+  { name: "히츠마부시", price: 12900, quantity: 2 },
+  { name: "연어덮밥", price: 15000, quantity: 3 },
+  { name: "히츠마부시", price: 12900, quantity: 2 },
+  { name: "연어덮밥", price: 15000, quantity: 3 },
+  { name: "히츠마부시", price: 12900, quantity: 2 },
+  { name: "연어덮밥", price: 15000, quantity: 3 },
+  { name: "히츠마부시", price: 12900, quantity: 2 },
+  { name: "연어덮밥", price: 15000, quantity: 3 },
+  { name: "히츠마부시", price: 12900, quantity: 2 },
+  { name: "연어덮밥", price: 15000, quantity: 3 },
+];
 
 function PickupScreen({ navigation }) {
   const bicycle = useRef(new Animated.Value(0)).current;
   const { width } = useWindowDimensions();
+  const [price, setPrice] = useState(0);
+
+  useEffect(() => {
+    let priceTemp = 0;
+    orderedList.forEach((item, index) => {
+      priceTemp = priceTemp + item.price * item.quantity;
+    });
+    setPrice(priceTemp);
+    console.log(priceTemp);
+  }, [orderedList]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -100,7 +127,6 @@ function PickupScreen({ navigation }) {
             <View
               style={{
                 flex: 1,
-
                 width: "100%",
                 height: "100%",
               }}
@@ -127,7 +153,12 @@ function PickupScreen({ navigation }) {
                 </Text>
               </View>
 
-              <View style={{ alignItems: "center", paddingVertical: 20 }}>
+              <View
+                style={{
+                  alignItems: "center",
+                  paddingVertical: 20,
+                }}
+              >
                 {orderedList.map((item, index) => {
                   return (
                     <Text
@@ -141,13 +172,23 @@ function PickupScreen({ navigation }) {
               </View>
             </View>
           </ScrollView>
+          <View>
+            <Text style={[styles.normalText, { fontSize: 18 }]}>
+              주문 총액 {price}원
+            </Text>
+          </View>
         </View>
         <View style={styles.lowerBtnContainer}>
-          <View style={styles.lowerBtn}>
+          <Pressable
+            style={styles.lowerBtn}
+            onPress={() => {
+              navigation.navigate("Home");
+            }}
+          >
             <Text style={{ fontSize: 20, fontFamily: "gowun" }}>
               홈으로 돌아가기
             </Text>
-          </View>
+          </Pressable>
         </View>
       </View>
     </SafeAreaView>
