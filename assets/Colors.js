@@ -3,6 +3,7 @@ const Colors = {
     plusBtn: "#ffa07d95",
     viewBox: "#ffa07d95",
     viewBox2: "#ffa08daa",
+    viewBox3: "#ffa08dfd",
     background: "white",
   },
   basicColor: {

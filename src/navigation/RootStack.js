@@ -8,13 +8,14 @@ import PickupScreen from "../ui/PickupScreen";
 
 const Stack = createNativeStackNavigator();
 
-function RootStack() {
+function RootStack({ images }) {
   return (
     <Stack.Navigator>
       <Stack.Screen
         name="Home"
         component={HomeScreen}
         options={{ title: "매장 선택하기" }}
+        initialParams={{ images: images }}
       />
       <Stack.Screen
         name="MenuList"

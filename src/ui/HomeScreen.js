@@ -7,6 +7,7 @@ import {
   Text,
   View,
   ImageBackground,
+  Dimensions,
 } from "react-native";
 import MaterialIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import Colors from "../../assets/Colors";
@@ -41,22 +42,17 @@ const brands = [
     picture: require("../../assets/image/unagi/food1.jpg"),
   },
 ];
-function HomeScreen() {
+function HomeScreen({ route }) {
+  SplashScreen.preventAutoHideAsync();
+
   const navigator = useNavigation();
-
-  const onLayoutRootView = useCallback(async () => {
-    if (menuImage) {
-      await SplashScreen.hideAsync();
-    }
-  }, [menuImage]);
-
-  if (!menuImage) {
-    // font load error
-    return null;
-  }
+  const { height } = Dimensions.get("window");
+  const woodImage = route.params.images.homeScreen.wood;
+  const menuBackground = route.params.images.homeScreen.menuBackground;
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   return (
-    <SafeAreaView style={{ flex: 1 }} onLayoutRootView={onLayoutRootView}>
+    <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.zeroContainer}>
         <Pressable
           style={{
@@ -68,81 +64,119 @@ function HomeScreen() {
             navigator.navigate("DeliveryScreen");
           }}
         >
-          <MaterialIcon name="home-edit" size={50} color="white" />
+          <MaterialIcon name="home-edit" size={50} color="black" />
         </Pressable>
         <Text
           style={{
             fontFamily: "gowun",
             fontSize: 20,
             paddingLeft: 10,
-            color: "white",
+            color: "black",
           }}
         >
           서울 양천구 신정3동
         </Text>
       </View>
       <View style={styles.container}>
-        <View style={[styles.firstContainer, {}]}>
-          <Pressable
-            style={styles.itemContainer}
-            onPress={() => {
-              navigator.navigate("StoreIntroduce", { brand: brands[0] });
-            }}
-          >
-            <ImageBackground
-              source={require("../../assets/image/wood.jpg")}
-              style={{
-                width: "100%",
-                height: "100%",
-                alignItems: "center",
-                justifyContent: "center",
+        <ImageBackground
+          source={menuBackground}
+          style={{ width: "100%", height: "100%", flexDirection: "row" }}
+          resizeMode="stretch"
+        >
+          <View style={styles.firstContainer}>
+            <Pressable
+              style={styles.itemContainer}
+              onPress={() => {
+                navigator.navigate("StoreIntroduce", { brand: brands[0] });
               }}
             >
-              <Text style={styles.normalText}>우나기 맨숀</Text>
-            </ImageBackground>
-          </Pressable>
-        </View>
-        <View style={styles.secondContainer}>
-          <Pressable
-            style={styles.itemContainer}
-            onPress={() => {
-              navigator.navigate("StoreIntroduce", { brand: brands[1] });
-            }}
-          >
-            <ImageBackground
-              source={require("../../assets/image/wood.jpg")}
-              style={{
-                width: "100%",
-                height: "100%",
-                alignItems: "center",
-                justifyContent: "center",
+              <ImageBackground
+                source={woodImage}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+                onLoadEnd={() => {
+                  setIsImageLoaded(true);
+                  console.log("image load finish");
+                  SplashScreen.hideAsync();
+                }}
+              >
+                <Text style={[styles.normalText, { textAlign: "center" }]}>
+                  우{"\n"}나{"\n"}기{"\n"}맨{"\n"}숀
+                </Text>
+              </ImageBackground>
+            </Pressable>
+          </View>
+          <View style={styles.secondContainer}>
+            <Pressable
+              style={styles.itemContainer}
+              onPress={() => {
+                navigator.navigate("StoreIntroduce", { brand: brands[1] });
               }}
             >
-              <Text style={[styles.normalText]}>대창을 덮다</Text>
-            </ImageBackground>
-          </Pressable>
-        </View>
+              <ImageBackground
+                source={woodImage}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Text style={[styles.normalText, { textAlign: "center" }]}>
+                  대{"\n"}창{"\n"}을{"\n"}덮{"\n"}다
+                </Text>
+              </ImageBackground>
+            </Pressable>
+          </View>
 
-        <View style={styles.thirdContainer}>
-          <Pressable
-            style={styles.itemContainer}
-            onPress={() => {
-              navigator.navigate("StoreIntroduce", { brand: brands[2] });
-            }}
-          >
-            <ImageBackground
-              source={require("../../assets/image/wood.jpg")}
-              style={{
-                width: "100%",
-                height: "100%",
-                alignItems: "center",
-                justifyContent: "center",
+          <View style={styles.thirdContainer}>
+            <Pressable
+              style={styles.itemContainer}
+              onPress={() => {
+                navigator.navigate("StoreIntroduce", { brand: brands[2] });
               }}
             >
-              <Text style={styles.normalText}>뚝도 양조장</Text>
-            </ImageBackground>
-          </Pressable>
-        </View>
+              <ImageBackground
+                source={woodImage}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  opacity: 40,
+                }}
+              >
+                <Text
+                  style={[
+                    styles.normalText,
+                    {
+                      textAlign: "center",
+                    },
+                  ]}
+                >
+                  뚝{"\n"}도{"\n"}양{"\n"}조{"\n"}장
+                </Text>
+              </ImageBackground>
+            </Pressable>
+          </View>
+          <Text
+            style={{
+              position: "absolute",
+              bottom: 10,
+              right: 10,
+              fontSize: 40,
+              fontFamily: "eastSea",
+              letterSpacing: 3,
+              color: "white",
+            }}
+          >
+            hero kitchen
+          </Text>
+        </ImageBackground>
       </View>
     </SafeAreaView>
   );
@@ -152,7 +186,7 @@ export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 7,
+    flex: 11,
     backgroundColor: "black",
     flexDirection: "row",
   },
@@ -166,33 +200,41 @@ const styles = StyleSheet.create({
   },
   firstContainer: {
     flex: 3,
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
+    paddingTop: 50,
   },
   secondContainer: {
     flex: 3,
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
+    paddingTop: 50,
   },
   thirdContainer: {
     flex: 3,
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
+    paddingTop: 50,
   },
   itemContainer: {
     justifyContent: "center",
     alignItems: "center",
     width: "80%",
-    height: "50%",
+    height: "70%",
     backgroundColor: Colors.componentColor.viewBox,
     borderRadius: 30,
     overflow: "hidden",
+    elevation: 10,
+    shadowOffset: { width: 10, height: 10 },
+    shadowColor: "black",
+    borderColor: "black",
+    borderWidth: 1,
   },
   //
   //
   normalText: {
-    color: "white",
-    fontSize: 40,
-    fontFamily: "gowun",
+    color: "black",
+    fontSize: 60,
+    fontFamily: "eastSea",
   },
 });

@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Text,
   View,
+  ImageBackground,
 } from "react-native";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import Colors from "../../../../assets/Colors";
@@ -15,6 +16,7 @@ import FoodContainer from "../FoodContainer";
 
 function StoreIntroduce({ route, navigation }) {
   const { brand } = route.params;
+  const foodPic = require("../../../../assets/image/unagi/food.jpg");
   React.useLayoutEffect(() => {
     navigation.setOptions({
       title: brand?.brandName,
@@ -32,7 +34,7 @@ function StoreIntroduce({ route, navigation }) {
           }}
         >
           <Image
-            source={brand.picture}
+            source={foodPic}
             resizeMode="cover"
             style={{
               flex: 1,
@@ -52,7 +54,7 @@ function StoreIntroduce({ route, navigation }) {
               <Text style={[styles.normalText, { fontSize: 20 }]}>
                 {brand.star}
               </Text>
-              <Text>(45)</Text>
+              <Text style={{ fontSize: 15 }}>(45)</Text>
             </View>
             <View style={{ marginLeft: 20 }}>
               <Text
@@ -122,8 +124,13 @@ function StoreIntroduce({ route, navigation }) {
           }
           renderItem={({ item }) => {
             return (
-              <View style={{ backgroundColor: "white" }}>
-                <FoodContainer menu={item} />
+              <View
+                style={{
+                  backgroundColor: "white",
+                  overflow: "hidden",
+                }}
+              >
+                <FoodContainer menu={item} image={foodPic} />
               </View>
             );
           }}
@@ -155,7 +162,7 @@ const styles = StyleSheet.create({
     flex: 2,
     paddingTop: 20,
     paddingBottom: 20,
-    justifyContent: "center",
+    justifyContent: "space-around",
   },
   second2Container: {
     flex: 1,

@@ -2,21 +2,20 @@ import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import Colors from "../../../assets/Colors";
 
-function FoodContainer({ menu }) {
+function FoodContainer({ menu, image }) {
   return (
     <View style={styles.container}>
       <View style={styles.upperContainer}>
-        <Text style={{ fontFamily: "gowun", fontSize: 20, color: "white" }}>
+        <Text
+          style={{ fontFamily: "black-sans", fontSize: 20, color: "black" }}
+        >
           {menu.menuName}
         </Text>
-        <Text>{menu.detail}</Text>
+        <Text style={{ fontFamily: "gowun", fontSize: 16 }}>{menu.detail}</Text>
       </View>
       <View style={styles.lowerContainer}>
         <View style={styles.imageContainer}>
-          <Image
-            source={require("../../../assets/image/unagi/food1.jpg")}
-            resizeMode="cover"
-          />
+          <Image source={image} resizeMode="cover" />
         </View>
       </View>
     </View>
@@ -37,6 +36,7 @@ const styles = StyleSheet.create({
   upperContainer: {
     flex: 2,
     alignItems: "center",
+    justifyContent: "space-evenly",
   },
   lowerContainer: {
     flex: 4,

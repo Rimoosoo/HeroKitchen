@@ -48,7 +48,7 @@ function PickupScreen({ navigation }) {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerShown: false,
+      headerShown: true,
     });
   });
 
